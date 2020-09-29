@@ -178,7 +178,7 @@ public class FlutterWebRTCPlugin implements MethodCallHandler {
         if (call.method.equals("createPeerConnection")) {
             Map<String, Object> constraints = call.argument("constraints");
             Map<String, Object> configuration = call.argument("configuration");
-            Boolean startAudioSession = (Boolean) configuration.get("startAudioSession");
+            Boolean startAudioSession = Boolean.parseBoolean(configuration.get("startAudioSession").toString());
             String peerConnectionId = peerConnectionInit(new ConstraintsMap(configuration),
                     new ConstraintsMap((constraints)), startAudioSession);
             ConstraintsMap res = new ConstraintsMap();
