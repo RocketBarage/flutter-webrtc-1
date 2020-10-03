@@ -567,7 +567,7 @@ class PeerConnectionObserver implements PeerConnection.Observer, EventChannel.St
             map.putString("name",codec.name);
             map.putInt("payloadType", codec.payloadType);
             map.putInt("clockRate", codec.clockRate);
-            map.putInt("numChannels", codec.numChannels);
+            map.putInt("numChannels", codec.numChannels == null ? 0 : codec.numChannels);
             map.putMap("numTemporalLayers", new HashMap<String, Object>(codec.parameters));
             //map.putString("kind", codec.kind);
             codecs.pushMap(map);
