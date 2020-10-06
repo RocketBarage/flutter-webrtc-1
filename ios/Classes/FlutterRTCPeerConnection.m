@@ -337,6 +337,32 @@
     }
 }
 
+- (void)peerConnection:(RTCPeerConnection *)peerConnection
+        didAddReceiver:(RTCRtpReceiver *)rtpReceiver
+               streams:(NSArray<RTCMediaStream *> *)mediaStreams{
+    FlutterEventSink eventSink = peerConnection.eventSink;
+    for(RTCMediaStream* item in mediaStreams) {
+        NSString *streamId = item.streamId;
+        RTCMediaStreamTrack *track = rtpReceiver.track;
+        peerConnection.remoteTracks[track.trackId] = track;
+        peerConnection.remoteStreams[streamId] = item;
+        if(eventSink){
+            eventSink(@{
+                        @"event" : @"onAddTrack",
+                        @"streamId": streamId,
+                        @"trackId": track.trackId,
+                        @"track": @{
+                                @"id": track.trackId,
+                                @"kind": track.kind,
+                                @"label": track.trackId,
+                                @"enabled": @(track.isEnabled),
+                                @"remote": @(YES),
+                                @"readyState": @"live"}
+                        });
+        }
+    }
+}
+
 -(void)peerConnection:(RTCPeerConnection *)peerConnection
           mediaStream:(RTCMediaStream *)stream didAddTrack:(RTCVideoTrack*)track{
     
