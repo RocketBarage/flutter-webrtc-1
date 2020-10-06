@@ -14,6 +14,7 @@
 #import <WebRTC/RTCAudioTrack.h>
 #import <WebRTC/RTCVideoTrack.h>
 #import <WebRTC/RTCMediaStream.h>
+#import <WebRTC/RTCRtpReceiver.h>
 
 @implementation RTCPeerConnection (Flutter)
 
